@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sandbox.Data;
 
 namespace sandbox.Migrations
 {
     [DbContext(typeof(AnimalShelterDbContext))]
-    partial class AnimalShelterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200405072325_fourth")]
+    partial class fourth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,14 +151,6 @@ namespace sandbox.Migrations
                     b.HasIndex("CatsID");
 
                     b.ToTable("Shelter");
-
-                    b.HasData(
-                        new
-                        {
-                            DogsID = 1,
-                            CatsID = 1,
-                            type = 0
-                        });
                 });
 
             modelBuilder.Entity("sandbox.Models.Animals", b =>

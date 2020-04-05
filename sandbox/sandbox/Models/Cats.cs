@@ -16,5 +16,6 @@ namespace sandbox.Models
         // if not join table use list
         // nav
         public List<Animals> Animal { get; set; }
+        public List<Shelter> Shelter { get; set; }
     }
 }

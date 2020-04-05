@@ -20,6 +20,9 @@ namespace sandbox.Data
         {
             modelBuilder.Entity<Animals>().HasKey(e => new { e.DogsID, e.CatsID });
 
+            modelBuilder.Entity<Shelter>().HasKey(e => new { e.DogsID, e.CatsID });
+
+
             // TODO: add this to seed
             modelBuilder.Entity<Dogs>().HasData(
                 new Dogs
@@ -74,12 +77,21 @@ namespace sandbox.Data
                     Type = "MochiPochi"
                 }
                 );
+            modelBuilder.Entity<Shelter>().HasData(
+                new Shelter
+                {
+                    CatsID = 1,
+                    DogsID = 1,
+                    type = (int)0
+                }
+                );
         }
 
         // TODO: add this
         public DbSet<Animals> Animals { get; set; }
         public DbSet<Cats> Cats { get; set; }
         public DbSet<Dogs> Dogs { get; set; }
+        public DbSet<Shelter> Shelter { get; set; }
     }
 
 

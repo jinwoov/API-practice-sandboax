@@ -15,6 +15,7 @@ namespace sandbox.Models
 
         //nav
         public List<Animals> Animal { get; set; }
+        public List<Shelter> Shelter { get; set; }
 
     }
 }
