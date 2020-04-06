@@ -32,6 +32,7 @@ namespace sandbox.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Animals>> GetAnimals(int id)
         {
+            // wait for the code come back before it excute
             var animals = await _context.Animals.FindAsync(id);
 
             if (animals == null)

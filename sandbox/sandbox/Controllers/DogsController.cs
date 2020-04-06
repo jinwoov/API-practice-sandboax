@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using sandbox.Data;
 using sandbox.Models;
+using sandbox.Models.Interfaces;
+using sandbox.Models.Services;
 
 namespace sandbox.Controllers
 {
@@ -14,97 +16,97 @@ namespace sandbox.Controllers
     [ApiController]
     public class DogsController : ControllerBase
     {
-        private readonly AnimalShelterDbContext _context;
+        /// <summary>
+        ///  change it interface
+        /// </summary>
+        private readonly IDoggys _doggy;
 
-        public DogsController(AnimalShelterDbContext context)
+        // TODO DI: use the dogys
+        public DogsController(IDoggys context)
         {
-            _context = context;
+            _doggy = context;
         }
 
         // GET: api/Dogs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Dogs>>> GetDogs()
         {
-            return await _context.Dogs.ToListAsync();
+            //get method of the dogs
+
+            return await _doggy.GetDogs();
         }
 
         // GET: api/Dogs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Dogs>> GetDogs(int id)
         {
-            var dogs = await _context.Dogs.FindAsync(id);
-
-            if (dogs == null)
-            {
-                return NotFound();
-            }
-
-            return dogs;
+            //change this to await with id
+           return await _doggy.GetDog(id);
         }
 
-        // PUT: api/Dogs/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDogs(int id, Dogs dogs)
-        {
-            if (id != dogs.ID)
-            {
-                return BadRequest();
-            }
+        //// PUT: api/Dogs/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        //// more details see https://aka.ms/RazorPagesCRUD.
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutDogs(int id, Dogs dogs)
+        //{
+        //    if (id != dogs.ID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(dogs).State = EntityState.Modified;
+        //    _context.Entry(dogs).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DogsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!DogsExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
-        // POST: api/Dogs
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<Dogs>> PostDogs(Dogs dogs)
-        {
-            _context.Dogs.Add(dogs);
-            await _context.SaveChangesAsync();
+        //// POST: api/Dogs
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        //// more details see https://aka.ms/RazorPagesCRUD.
+        //[HttpPost]
+        //public async Task<ActionResult<Dogs>> PostDogs(Dogs dogs)
+        //{
+        //    _context.Dogs.Add(dogs);
+        //    await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDogs", new { id = dogs.ID }, dogs);
-        }
+        //    return CreatedAtAction("GetDogs", new { id = dogs.ID }, dogs);
+        //}
 
-        // DELETE: api/Dogs/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Dogs>> DeleteDogs(int id)
-        {
-            var dogs = await _context.Dogs.FindAsync(id);
-            if (dogs == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Dogs/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Dogs>> DeleteDogs(int id)
+        //{
+        //    var dogs = await _context.Dogs.FindAsync(id);
+        //    if (dogs == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Dogs.Remove(dogs);
-            await _context.SaveChangesAsync();
+        //    _context.Dogs.Remove(dogs);
+        //    await _context.SaveChangesAsync();
 
-            return dogs;
-        }
+        //    return dogs;
+        //}
 
-        private bool DogsExists(int id)
-        {
-            return _context.Dogs.Any(e => e.ID == id);
-        }
+        //private bool DogsExists(int id)
+        //{
+        //    return _context.Dogs.Any(e => e.ID == id);
+        //}
     }
 }

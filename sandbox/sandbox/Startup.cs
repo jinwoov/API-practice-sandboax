@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using sandbox.Data;
+using sandbox.Models.Interfaces;
+using sandbox.Models.Services;
 
 namespace sandbox
 {
@@ -38,6 +40,9 @@ namespace sandbox
             // TODO 5. paste in following code
             services.AddDbContext<AnimalShelterDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // TODO DI: add this everytime you see Idoggys you instantiate service
+            services.AddTransient<IDoggys, DogsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
