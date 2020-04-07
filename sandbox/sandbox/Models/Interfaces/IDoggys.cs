@@ -19,6 +19,6 @@ namespace sandbox.Models.Interfaces
         // U
         void UpdateDog(Dogs dog);
         // D
-        void DeleteDog(int id);
+        Task<Dogs> DeleteDog(int id);
     }
 }

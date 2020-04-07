@@ -27,9 +27,15 @@ namespace sandbox.Models.Services
              await _context.SaveChangesAsync();
         }
 
-        public void DeleteDog(int id)
+        public async Task<Dogs> DeleteDog(int id)
         {
-            throw new NotImplementedException();
+            var dog = await _context.Dogs.FindAsync(id);
+
+            _context.Remove(dog);
+
+            await _context.SaveChangesAsync();
+
+            return dog;
         }
 
         // change this by using the task as a return type. return the student

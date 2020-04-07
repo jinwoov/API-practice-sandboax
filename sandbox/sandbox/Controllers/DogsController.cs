@@ -76,33 +76,23 @@ namespace sandbox.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/Dogs
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPost]
-        //public async Task<ActionResult<Dogs>> PostDogs(Dogs dogs)
-        //{
-        //    _context.Dogs.Add(dogs);
-        //    await _context.SaveChangesAsync();
+        // POST: api/Dogs
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPost]
+        public async Task<ActionResult<Dogs>> PostDogs(Dogs dogs)
+        {
+            await _doggy.CreateAnimal(dogs);
 
-        //    return CreatedAtAction("GetDogs", new { id = dogs.ID }, dogs);
-        //}
+            return CreatedAtAction("GetDogs", new { id = dogs.ID }, dogs);
+        }
 
-        //// DELETE: api/Dogs/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Dogs>> DeleteDogs(int id)
-        //{
-        //    var dogs = await _context.Dogs.FindAsync(id);
-        //    if (dogs == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Dogs.Remove(dogs);
-        //    await _context.SaveChangesAsync();
-
-        //    return dogs;
-        //}
+        // DELETE: api/Dogs/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Dogs>> DeleteDogs(int id)
+        {
+            return await _doggy.DeleteDog(id);
+        }
 
         //private bool DogsExists(int id)
         //{
