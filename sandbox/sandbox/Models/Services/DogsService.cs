@@ -51,9 +51,16 @@ namespace sandbox.Models.Services
            return await _context.Dogs.ToListAsync();
         }
 
-        public void UpdateDog(Dogs dog)
+        public async Task<Dogs> UpdateDog(int id, Dogs dog)
         {
-            throw new NotImplementedException();
+            var dogs = await _context.Dogs.FindAsync(id);
+
+            _context.Update(dog);
+
+            await _context.SaveChangesAsync();
+
+            return dogs;
         }
+
     }
 }

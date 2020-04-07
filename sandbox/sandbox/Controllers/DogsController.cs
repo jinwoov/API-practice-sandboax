@@ -44,37 +44,15 @@ namespace sandbox.Controllers
            return await _doggy.GetDog(id);
         }
 
-        //// PUT: api/Dogs/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutDogs(int id, Dogs dogs)
-        //{
-        //    if (id != dogs.ID)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(dogs).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!DogsExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
+        // PUT: api/Dogs/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPut("{id}")]
+        public async Task<Dogs> PutDogs(int id, Dogs dogs)
+        {
+            return await _doggy.UpdateDog(id, dogs);
+           
+        }
 
         // POST: api/Dogs
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -94,9 +72,6 @@ namespace sandbox.Controllers
             return await _doggy.DeleteDog(id);
         }
 
-        //private bool DogsExists(int id)
-        //{
-        //    return _context.Dogs.Any(e => e.ID == id);
-        //}
+
     }
 }

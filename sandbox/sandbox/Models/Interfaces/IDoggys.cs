@@ -17,7 +17,7 @@ namespace sandbox.Models.Interfaces
 
         Task<List<Dogs>> GetDogs();
         // U
-        void UpdateDog(Dogs dog);
+        Task<Dogs> UpdateDog(int id, Dogs dog);
         // D
         Task<Dogs> DeleteDog(int id);
     }
