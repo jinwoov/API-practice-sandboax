@@ -51,15 +51,12 @@ namespace sandbox.Models.Services
            return await _context.Dogs.ToListAsync();
         }
 
-        public async Task<Dogs> UpdateDog(int id, Dogs dog)
+        public async Task UpdateDog(Dogs dog)
         {
-            var dogs = await _context.Dogs.FindAsync(id);
-
             _context.Update(dog);
 
             await _context.SaveChangesAsync();
 
-            return dogs;
         }
 
     }

@@ -48,10 +48,30 @@ namespace sandbox.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<Dogs> PutDogs(int id, Dogs dogs)
+        public async Task<IActionResult> PutDogs(int id, Dogs dogs)
         {
-            return await _doggy.UpdateDog(id, dogs);
-           
+            if (id != dogs.ID)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await _doggy.UpdateDog(dogs);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                if (!await DogsExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
         }
 
         // POST: api/Dogs
@@ -69,9 +89,23 @@ namespace sandbox.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Dogs>> DeleteDogs(int id)
         {
+            if (id <= 0)
+            {
+                return NotFound();
+            }
+
             return await _doggy.DeleteDog(id);
         }
 
+        private async Task<bool> DogsExists(int id)
+        {
+            Dogs dog = await _doggy.GetDog(id);
+            if (dog != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }
